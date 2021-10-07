@@ -1,0 +1,85 @@
+body {
+    background-color: #eeebf8;
+}
+.containers
+{
+    margin: auto;
+    width: 47vw;
+    border-radius: 8px;
+    background-color: white;
+    
+}
+
+.containerPadder {
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.noMargin 
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+.LabelContainer 
+{
+    margin-bottom: 30px;    
+}
+
+.inputText
+{
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom-width: 1px;
+    border-bottom-color: #ccc;
+    width: 100%;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    text-decoration: none;
+}
+
+.zeropaddding {
+    padding:  0px 0px;
+}
+
+.inputText:focus{
+    outline: none!important;
+    box-shadow: none!important;
+    border-bottom-color: #613bb0;
+}
+
+.checkboxContainer 
+{
+    padding-top:  5px;
+    padding-bottom: 5px;
+    flex-direction: row;
+    justify-content: start;
+
+}
+
+.checkboxInput
+{
+    width: 15px;
+    height: 15px;
+}
+
+.button {
+    background-color: #613bb0;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+
+}
+
+#bottonClear {
+    background: transparent;
+    color: #613bb0;
+}

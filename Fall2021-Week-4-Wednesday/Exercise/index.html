@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="style.css" rel="stylesheet" />
+
+    <title>HTML Form</title>
+  </head>
+  <body style="padding: 60px">
+    <form>
+      <table>
+        <tr>
+          <div class="containers containerPadder">
+            <h1 class="noMargin">Sample Form</h1>
+            <p class="noMargin">
+              Choose a topic, and research interest for the individual
+              visualization project.
+            </p>
+          </div>
+        </tr>
+        <tr>
+          <div class="containers containerPadder">
+            <div class="LabelContainer">
+              <label class="noMargin">Email</label>
+              <label style="color: red">*</label><br />
+            </div>
+            <input placeholder="Your answer" type="text" class="inputText" />
+          </div>
+        </tr>
+        <tr>
+          <div class="containers containerPadder">
+            <div class="LabelContainer">
+              <label class="noMargin">Firstname</label><br />
+            </div>
+            <input placeholder="Your answer" type="text" class="inputText" />
+          </div>
+        </tr>
+        <tr>
+          <div class="containers containerPadder">
+            <div class="LabelContainer">
+              <label class="noMargin">Lastname</label><br />
+            </div>
+            <input placeholder="Your answer" type="text" class="inputText" />
+          </div>
+        </tr>
+        <tr>
+          <div class="containers containerPadder">
+            <div class="LabelContainer">
+              <label class="noMargin">Research Interest (list at least 3)</label
+              ><label style="color: red">*</label><br />
+            </div>
+            <input placeholder="Your answer" type="text" class="inputText" />
+          </div>
+        </tr>
+        <tr>
+          <div class="containers containerPadder">
+            <div class="LabelContainer">
+              <label class="noMargin"
+                >Project Title - (e.g. income vs education US Census)</label
+              ><label style="color: red">*</label><br />
+            </div>
+            <input placeholder="Your answer" type="text" class="inputText" />
+          </div>
+        </tr>
+
+        <tr>
+          <div class="containers containerPadder">
+            <div class="LabelContainer">
+              <label class="noMargin">Top Skills</label
+              ><label style="color: red">*</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="SQL" />
+              <label> SQL</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input
+                type="checkbox"
+                class="checkboxInput"
+                value="Python programming"
+              />
+              <label> Python programming</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="Matlab" />
+              <label> Matlab</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input
+                type="checkbox"
+                class="checkboxInput"
+                value="D3js and Javascript"
+              />
+              <label> D3js and Javascript</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="C# VB.net" />
+              <label> C# VB.net</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="PHP" />
+              <label> PHP</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="Node.JS" />
+              <label> Node.JS</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input
+                type="checkbox"
+                class="checkboxInput"
+                value="Web design tools (e.g. Wordpress)"
+              />
+              <label> Web design tools (e.g. Wordpress)</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input
+                type="checkbox"
+                class="checkboxInput"
+                value="HTML and CSS"
+              />
+              <label> HTML and CSS</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="Excel" />
+              <label> Excel,</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="PowerBI" />
+              <label> PowerBI</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="Tableau" />
+              <label> Tableau</label><br />
+            </div>
+            <div class="checkboxContainer">
+              <input type="checkbox" class="checkboxInput" value="Option 13" />
+              <label> Option 13</label><br />
+            </div>
+            <div class="checkboxContainer" style="display: flex">
+              <input type="checkbox" class="checkboxInput" value="Other:" />
+              <label style="padding-left: 5px; padding-right: 5px"
+                >Other:</label
+              >
+              <input type="text" class="zeropaddding inputText" />
+              <br />
+            </div>
+          </div>
+        </tr>
+        <tr>
+          <div class="containers containerPadder">
+            <div class="LabelContainer">
+              <label class="noMargin">Suggestions or Questions</label><br />
+            </div>
+            <input placeholder="Your answer" type="text" class="inputText" />
+          </div>
+        </tr>
+        <tr>
+          <div
+            class="containers"
+            style="
+              width: 50vw;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              background-color: transparent;
+            "
+          >
+            <button class="button">Submit</button>
+            <button class="button" id="bottonClear">Clear form</button>
+          </div>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

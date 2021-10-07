@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Horizontal Stacked Bar Chart</title>
+    <script src="../libs/d3/d3.js"></script>
+    <script src="../libs/d3/d3.js"></script>
+    <script
+      src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"
+      type="text/javascript"
+    ></script>
+    <style>
+      #mySvg {
+        display: block;
+        background-color: grey;
+        width: 500;
+        height: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="main-div"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: vw;
+        height: vh;
+      "
+    ></div>
+    <script>
+      d3.csv("data_sample.csv")
+        .then((d) => {
+          let dataset = d.map((element) => {
+            let item = {
+              date: new Date(element.Date),
+              estimatedCost: Number(element.EstimatedCost),
+              rawMaterial: Number(element.RawMaterial),
+              workmanship: Number(element.Workmanship),
+              yearlyStorage: Number(element.YearlyStorage),
+            };
+            return item;
+          });
+
+          let svg = d3
+            .selectAll("#main-div")
+            .append("svg")
+            .attr("width", "90%")
+            .attr("height", "80vh")
+            .attr("viewBox", "0 0 500 500")
+            .style("background-color", "#f5f3f3");
+          let margins = 60;
+          let width = 600 - 2 * margins;
+          let height = 500 - 2 * margins;
+
+          //x axis label value setting using dates
+          let x = d3
+            .scaleTime()
+            .domain(
+              d3.extent(dataset, function (d) {
+                return d.date;
+              })
+            )
+            .range([margins, width]);
+
+          //y axis label value setting by finding the max value in the dataset for y-axis plotting
+          let y = d3
+            .scaleLinear()
+            .domain([
+              0,
+              d3.max(dataset, function (d) {
+                let maxValArr = [];
+                dataset.map((item) => {
+                  maxValArr.push(
+                    item.estimatedCost,
+                    item.rawMaterial,
+                    item.workmanship,
+                    item.yearlyStorage
+                  );
+                });
+                return Math.max(...maxValArr);
+              }),
+            ])
+            .range([height, margins]);
+
+          //line for estimated cost
+          let line1 = d3
+            .line()
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y(function (d) {
+              return y(d.estimatedCost);
+            });
+
+          //line for raw material
+          let line2 = d3
+            .line()
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y(function (d) {
+              return y(d.rawMaterial);
+            });
+
+          //line for workmanship
+          let line3 = d3
+            .line()
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y(function (d) {
+              return y(d.workmanship);
+            });
+
+          //line for yearly storage
+          let line4 = d3
+            .line()
+            .x(function (d) {
+              return x(d.date);
+            })
+            .y(function (d) {
+              return y(d.yearlyStorage);
+            });
+
+          svg
+            .append("path")
+            .data([dataset])
+            .attr("class", "line")
+            .attr("d", line1)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("fill", "none")
+            .attr("stroke", "#c905fa")
+            .attr("stroke-width", "2px");
+          svg
+            .append("path")
+            .data([dataset])
+            .attr("class", "line")
+            .attr("d", line2)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("fill", "none")
+            .attr("stroke", "#077ff7")
+            .attr("stroke-width", "2px");
+
+          svg
+            .append("path")
+            .data([dataset])
+            .attr("class", "line")
+            .attr("d", line3)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("fill", "none")
+            .attr("stroke", "#07f733")
+            .attr("stroke-width", "2px");
+
+          svg
+            .append("path")
+            .data([dataset])
+            .attr("class", "line")
+            .attr("d", line4)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("fill", "none")
+            .attr("stroke", "#fc8b0a")
+            .attr("stroke-width", "2px");
+
+          svg
+            .append("g")
+            .attr("transform", "translate(" + "0" + "," + height + ")")
+            .call(d3.axisBottom(x))
+            .attr("stroke", "#d15249");
+          svg
+            .append("g")
+            .attr("transform", "translate(" + margins + "," + "0" + ")")
+            .call(d3.axisLeft(y))
+            .attr("stroke", "#bd111a");
+        })
+        .catch((error) => {
+          let p = d3.select("body").append("p");
+          p.text("No data found or " + error);
+        });
+    </script>
+  </body>
+</html>
