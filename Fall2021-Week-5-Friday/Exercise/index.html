@@ -63,7 +63,11 @@
               })
             )
             .range([margins, width]);
-
+          console.log(
+            d3.extent(dataset, function (d) {
+              return d.date;
+            })
+          );
           //y axis label value setting by finding the max value in the dataset for y-axis plotting
           let y = d3
             .scaleLinear()

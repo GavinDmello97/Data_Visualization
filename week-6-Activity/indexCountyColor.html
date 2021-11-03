@@ -47,7 +47,7 @@
       }
 
       .c25011 {
-        fill: #600;
+        fill: aqua;
       }
 
       .c25003 {
@@ -117,6 +117,15 @@
       Promise.all([d3.json(MA_counties), d3.csv(gini_index)]).then((data) => {
         // topology data
         const topo_data = data[0];
+
+        let arr = topo_data.objects.ma.geometries;
+        console.log(
+          "abc",
+          arr.map((d) => {
+            return { data1: d.properties.TOWN, data2: d.properties.SHAPE_AREA };
+          })
+        );
+
         // gini index data
         const csv_data = data[1];
 
