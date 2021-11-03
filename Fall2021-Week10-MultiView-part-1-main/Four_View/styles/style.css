@@ -1,0 +1,47 @@
+body {
+    margin: 0px
+}
+
+.axisX{
+    font-size: 12pt;
+}
+.axisY{
+    font-size: 12pt;
+}
+.axis{
+    font-size: 12pt;
+}
+circle{
+    fill-opacity: .7;
+}
+.title{
+    font-size: 15pt;
+    font-family: sans-serif;
+    text-anchor: middle;
+    color: black;
+    z-index: 1001;
+}
+.label{
+    font-size: 12pt;
+    font-family: sans-serif;
+    text-anchor: middle;
+    z-index: 1001;
+}
+.bars{
+    fill-opacity: .7;
+}
+.legend{
+    text-anchor: middle;
+    font-size: 11pt;
+    font-family: sans-serif;
+}
+.selected{
+    stroke: black;
+    stroke-width: 3px;
+    fill-opacity: 1;
+}
+
+svg {
+    width: 50%;
+    height: 100%
+}

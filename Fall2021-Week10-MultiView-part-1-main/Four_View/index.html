@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style></style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/scatter_plot.js"></script>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div
+      style="
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      "
+    >
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          height: 50%;
+          justify-content: space-between;
+        "
+      >
+        <svg viewBox="0 0 400 400" id="figure1"></svg>
+        <svg viewBox="0 0 400 400" id="figure2"></svg>
+      </div>
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          height: 50%;
+          justify-content: space-between;
+        "
+      >
+        <svg viewBox="0 0 400 400" id="figure3"></svg>
+        <svg viewBox="0 0 400 400" id="figure4"></svg>
+      </div>
+    </div>
+    <script>
+      d3.tsv("./data/palmer_penguin_species.tsv").then(function (data) {
+        let species = ["Adelie", "Gentoo", "Chinstrap"];
+        let classic_colors = ["#440154", "#21908dff", "#fde725ff"];
+        let color = d3.scaleOrdinal().domain(species).range(classic_colors);
+
+        let formatted_data1 = d3.map(data, function (d) {
+          return {
+            x: d.culmen_length_mm,
+            y: d.body_mass_g,
+            r: d.flipper_length_mm,
+            c: color(d.species),
+          };
+        });
+
+        let formatted_data2 = d3.map(data, function (d) {
+          return {
+            x: d.flipper_length_mm,
+            y: d.body_mass_g,
+            r: d.flipper_length_mm,
+            c: color(d.species),
+          };
+        });
+
+        let formatted_data3 = d3.map(data, function (d) {
+          return {
+            x: d.culmen_length_mm,
+            y: d.culmen_depth_mm,
+            r: d.flipper_length_mm,
+            c: color(d.species),
+          };
+        });
+
+        let formatted_data4 = d3.map(data, function (d) {
+          return {
+            x: d.flipper_length_mm,
+            y: d.culmen_depth_mm,
+            r: d.flipper_length_mm,
+            c: color(d.species),
+          };
+        });
+
+        scatter_plot(
+          formatted_data1,
+          "#figure1",
+          (title = "Pinguines _1"),
+          (xLabel = "culmen_length_mm"),
+          (yLabel = "body_mass_g"),
+          (legend = species),
+          (legendcolors = classic_colors),
+          (margin = 50)
+        );
+
+        scatter_plot(
+          formatted_data2,
+          "#figure2",
+          (title = "Pinguines _2"),
+          (xLabel = "flipper_length_mm "),
+          (yLabel = "body_mass_g"),
+          (legend = species),
+          (legendcolors = classic_colors),
+          (margin = 50)
+        );
+
+        scatter_plot(
+          formatted_data3,
+          "#figure3",
+          (title = "Pinguines _3"),
+          (xLabel = "culmen_length_mm"),
+          (yLabel = "culmen_depth_mm"),
+          (legend = species),
+          (legendcolors = classic_colors),
+          (margin = 50)
+        );
+
+        scatter_plot(
+          formatted_data4,
+          "#figure4",
+          (title = "Pinguines _4"),
+          (xLabel = "flipper_length_mm"),
+          (yLabel = "culmen_depth_mm"),
+          (legend = species),
+          (legendcolors = classic_colors),
+          (margin = 50)
+        );
+      });
+    </script>
+  </body>
+</html>
