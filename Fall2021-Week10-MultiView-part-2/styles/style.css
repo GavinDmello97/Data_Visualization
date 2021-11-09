@@ -54,3 +54,8 @@ text.plotTitle{
     margin-left: 10px;
 }
 
+
+.resetLegends {
+    background-color: lime;
+    color: lime;
+}
