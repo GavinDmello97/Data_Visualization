@@ -76,16 +76,21 @@ function scatter_plot(X,Y,markersize,
                 let lgnd = axis.append("g").attr('transform',`translate(${900},${i*50 + space})`);
                 lgnd.append('rect').attr('width',function (d){return 40})
                                    .attr('height',function (d){return 40})
+                                   .attr("class", "circle"+ i)
                                    .attr('fill',function (d){ 
                                        return legendcolors[i]
-                                   }).on("click", function() {
+                                   })
+                                   .attr('stroke', 'black')
+                                   .on("click", function() {
                                        d3.selectAll(`.${circle}`).style("display", "table").style("display",function (d,ind){
-                                           console.log(ColorData, i)
                                             if(ColorData[ind] === i){
                                                 return "circle"
                                             }      
                                             else{return "none"}                                 
                                         })
+                                        console.log(d)
+
+                                        // d3.select(`.${d}`).attr('stroke-width', '5')
                                     })
                     .attr("class",d)
                 lgnd.append('text').style("font-size", "24px").attr("class","legend").attr("dx","-120").attr("dy","30").text(d)
