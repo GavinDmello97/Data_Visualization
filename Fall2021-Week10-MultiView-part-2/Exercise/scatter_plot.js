@@ -89,10 +89,13 @@ function scatter_plot(X,Y,markersize,
                                             else{return "none"}                                 
                                         })
                                         console.log(d)
+                                        d3.select(`.${circle+legend[0]}`).attr('stroke-width', '0')
+                                        d3.select(`.${circle+legend[1]}`).attr('stroke-width', '0')
+                                        d3.select(`.${circle+legend[2]}`).attr('stroke-width', '0')
 
-                                        // d3.select(`.${d}`).attr('stroke-width', '5')
+                                        d3.select(`.${circle+d}`).attr('stroke-width', '5')
                                     })
-                    .attr("class",d)
+                    .attr("class",circle+d)
                 lgnd.append('text').style("font-size", "24px").attr("class","legend").attr("dx","-120").attr("dy","30").text(d)
     
             })
