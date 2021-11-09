@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>joint plot</title>
+
+    <script src="scatter_plot.js?2"></script>
+    <script src="bar_plot.js?2"></script>
+
+    <link rel="stylesheet" href="../styles/style.css" />
+    <style>
+      .fig {
+        fill: #faf8f8;
+      }
+      table {
+        border: 1px solid #d2bcbc;
+        border-collapse: collapse;
+        width: 60vw;
+      }
+      td {
+        border: 1px solid #d2bcbc;
+        border-collapse: collapse;
+        padding: 10px;
+        width: 10vw;
+      }
+    </style>
+    <script src="../lib/d3.js"></script>
+  </head>
+  <body
+    style="
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      
+    "
+  >
+    <div style="width: 100%; display: flex; flex-direction: row; justify-content: center;">
+    <input type="button"  id="button1" value="Adelie" class="button"  onclick="changeLayout(0)" />
+    <input type="button"  id="button1" value="Gentoo" class="button" onclick="changeLayout(1)" />
+    <input type="button"  id="button1" value="Chinstrap" class="button" onclick="changeLayout(2)" />
+  </div>
+    </div>
+    <!-- https://seaborn.pydata.org/generated/seaborn.jointplot.html -->
+    <!--palmer_penguin_species: https://raw.githubusercontent.com/datavizpyr/data/master/palmer_penguin_species.tsv -->
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 20px;
+      "
+    >
+      <table style="margin: 5px; width: 600px" id="table1">
+        <tr>
+          <td><svg width="500px" height="150px" id="top1"></svg></td>
+          <td width="10%">&nbsp</td>
+        </tr>
+        <tr>
+          <td>
+            <svg
+              width="500px"
+              height="500px"
+              viewBox="0 0 1000 1000"
+              id="main1"
+            ></svg>
+          </td>
+          <td><svg width="150px" height="500px" id="right1"></svg></td>
+        </tr>
+      </table>
+      <table style="margin: 5px; width: 600px" id="table2">
+        <tr>
+          <td><svg width="500px" height="150px" id="top2"></svg></td>
+          <td width="10%">&nbsp</td>
+        </tr>
+        <tr>
+          <td>
+            <svg
+              width="500px"
+              height="500px"
+              viewBox="0 0 1000 1000"
+              id="main2"
+            ></svg>
+          </td>
+          <td><svg width="150px" height="500px" id="right2"></svg></td>
+        </tr>
+      </table>
+      <table style="margin: 5px; width: 600px" id="table3">
+        <tr>
+          <td><svg width="500px" height="150px" id="top3"></svg></td>
+          <td width="10%">&nbsp</td>
+        </tr>
+        <tr>
+          <td>
+            <svg
+              width="500px"
+              height="500px"
+              viewBox="0 0 1000 1000"
+              id="main3"
+            ></svg>
+          </td>
+          <td><svg width="150px" height="500px" id="right3"></svg></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      let palmer_penguin_species = "../data/palmer_penguin_species.tsv";
+      // loading data
+      d3.tsv(palmer_penguin_species).then(main);
+
+      // Subplots 1
+      let fig1_main = d3
+        .select("#main1")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+      // top svg 1
+      let fig1_top = d3
+        .select("#top1")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+      // right svg 1
+      let fig1_right = d3
+        .select("#right1")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+
+      // Subplots 2
+
+      let fig2_main = d3
+        .select("#main")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+      // top svg 2
+      let fig2_top = d3
+        .select("#top")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+      // right svg 2
+      let fig2_right = d3
+        .select("#right")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+
+      // Subplots 3
+
+      let fig3_main = d3
+        .select("#main")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+      // top svg 3
+      let fig3_top = d3
+        .select("#top")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+      // right svg 3
+      let fig3_right = d3
+        .select("#right")
+        .append("g")
+        .append("rect")
+        .attr("class", "fig")
+        .attr("width", "100%")
+        .attr("height", "100%");
+
+    var changeLayout = function(number) {
+        d3.select("#table1").attr("style", number === 0 ? "display: table": "display: none");
+        d3.select("#table2").attr("style", number === 1 ? "display: table": "display: none");
+        d3.select("#table3").attr("style", number === 2 ? "display: table": "display: none");
+    }
+
+
+      function main(data) {
+        changeLayout(0)
+
+        let species = d3.map(data, function (d) {
+          return d.species;
+        });
+        let species_types = new Set(species);
+        const iterableSet = [...species_types];
+        var array1 = [],
+          array2 = [],
+          array3 = [];
+
+        data.map((element) => {
+          if (element.species === iterableSet[0]) {
+            array1.push(element);
+          } else if (element.species === iterableSet[1]) {
+            array2.push(element);
+          } else if (element.species === iterableSet[2]) {
+            array3.push(element);
+          }
+        });
+
+        var dict = {};
+        dict[iterableSet[0]] = array1;
+        dict[iterableSet[1]] = array2;
+        dict[iterableSet[2]] = array3;
+
+
+        // fetch data from table
+        let clmm1 = d3.map(dict[iterableSet[0]], function (d) {
+          return +d.culmen_length_mm;
+        });
+        let cdmm1 = d3.map(dict[iterableSet[0]], function (d) {
+          return +d.culmen_depth_mm;
+        });
+        let flmm1 = d3.map(dict[iterableSet[0]], function (d) {
+          console.log(d.flipper_length_mm)
+          return +d.flipper_length_mm/20;
+        });
+
+        let clmm2 = d3.map(dict[iterableSet[1]], function (d) {
+          return +d.culmen_length_mm;
+        });
+        let cdmm2 = d3.map(dict[iterableSet[1]], function (d) {
+          return +d.culmen_depth_mm;
+        });
+        let flmm2 = d3.map(dict[iterableSet[1]], function (d) {
+          return +d.flipper_length_mm/20;
+        });
+
+        let clmm3 = d3.map(dict[iterableSet[2]], function (d) {
+          return +d.culmen_length_mm;
+        });
+        let cdmm3 = d3.map(dict[iterableSet[2]], function (d) {
+          return +d.culmen_depth_mm;
+        });
+        let flmm3 = d3.map(dict[iterableSet[2]], function (d) {
+          return +d.flipper_length_mm/20;
+        });
+
+        let islandList = ['Torgersen','Biscoe','Dream']
+
+
+        let island_code = d3.map(dict[iterableSet[0]], function (d) {
+          island = d.island;
+          if (island === "Torgersen") {
+            return 0;
+          } else if (island === "Dream") {
+            return 1;
+          } else {
+            return 2;
+          }
+        });
+
+        // main svg
+        scatter_plot(
+          cdmm1,
+          clmm1,
+          flmm1,
+          island_code,
+          "main1",
+          (title = "Penguin Species"),
+          (xLabel = "culmen_depth_mm"),
+          (yLabel = "culmen_length_mm"),
+          legend = islandList,
+          legendcolors = ["rgb(70, 130, 180)", "rgb(118, 86, 111)", "rgb(165, 42, 42)"],
+          circle = "circle1"
+
+        );
+        //#############
+        bar_plot(cdmm1, 14, "top1");
+        h_bar_plot(clmm1, 10, "right1");
+
+        scatter_plot(
+          cdmm2,
+          clmm2,
+          flmm2,
+          island_code,
+          "main2",
+          (title = "Penguin Species"),
+          (xLabel = "culmen_depth_mm"),
+          (yLabel = "culmen_length_mm"),
+          legend = islandList,
+          legendcolors = ["rgb(70, 130, 180)", "rgb(118, 86, 111)", "rgb(165, 42, 42)"],
+          circle = "circle2"
+        );
+        //#############
+        bar_plot(cdmm2, 10, "top2");
+        h_bar_plot(clmm2, 10, "right2");
+
+        scatter_plot(
+          cdmm3,
+          clmm3,
+          flmm3,
+          island_code,
+          "main3",
+          (title = "Penguin Species"),
+          (xLabel = "culmen_depth_mm"),
+          (yLabel = "culmen_length_mm"),
+          legend = islandList,
+          legendcolors = ["rgb(70, 130, 180)", "rgb(118, 86, 111)", "rgb(165, 42, 42)"],
+          circle = "circle3"
+
+        );
+        //#############
+        bar_plot(cdmm3, 11, "top3");
+        h_bar_plot(clmm3, 10, "right3");
+
+
+      }
+    </script>
+  </body>
+</html>
