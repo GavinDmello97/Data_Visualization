@@ -29,7 +29,6 @@ function scatter_plot(X,Y,markersize,
             return markersize[i];
         }).attr("class",circle) 
         .style("fill",function (d,i){
-            console.log(X[i], Y[i], colorScale(ColorData[i]))
             return colorScale(ColorData[i])})
     // x and y Axis function
     let x_axis = d3.axisBottom(xScale).ticks(4)
@@ -69,11 +68,10 @@ function scatter_plot(X,Y,markersize,
 
 
         if (legend.length>0){
-            console.log(legend)
             legend.forEach(
                 function (d,i){
                 let space = 50
-                let lgnd = axis.append("g").attr('transform',`translate(${900},${i*50 + space})`);
+                let lgnd = axis.append("g").attr('transform',`translate(${1000},${i*50 + space})`);
                 lgnd.append('rect').attr('width',function (d){return 40})
                                    .attr('height',function (d){return 40})
                                    .attr("class", "circle"+ i)
@@ -88,16 +86,43 @@ function scatter_plot(X,Y,markersize,
                                             }      
                                             else{return "none"}                                 
                                         })
-                                        console.log(d)
                                         d3.select(`.${circle+legend[0]}`).attr('stroke-width', '0')
                                         d3.select(`.${circle+legend[1]}`).attr('stroke-width', '0')
                                         d3.select(`.${circle+legend[2]}`).attr('stroke-width', '0')
 
                                         d3.select(`.${circle+d}`).attr('stroke-width', '5')
                                     })
-                    .attr("class",circle+d)
-                lgnd.append('text').style("font-size", "24px").attr("class","legend").attr("dx","-120").attr("dy","30").text(d)
-    
+                    .attr("class",circle+d).style('cursor', 'pointer')
+                lgnd.append('text').style("font-size", "30px").attr("class","legend").attr("dx","-140").attr("dy","30").text(d).on("click", function() {
+                    d3.selectAll(`.${circle}`).style("display", "table").style("display",function (d,ind){
+                         if(ColorData[ind] === i){
+                             return "circle"
+                         }      
+                         else{return "none"}                                 
+                     })
+                     d3.select(`.${circle+legend[0]}`).attr('stroke-width', '0')
+                     d3.select(`.${circle+legend[1]}`).attr('stroke-width', '0')
+                     d3.select(`.${circle+legend[2]}`).attr('stroke-width', '0')
+
+                     d3.select(`.${circle+d}`).attr('stroke-width', '5')
+                 }).style('cursor', 'pointer')
+                
+                console.log("Index = ", i, legend.length)
+                if(i === legend.length-1) {
+                    let resetter = axis.append("g").attr('transform',`translate(${1000},${(i+1)*50 + space})`);
+
+                
+                    resetter.append('text').style("font-size", "28px").attr("class","legend").attr("dx","-140").attr("dy","30").text("Reset all legends").attr("text-decoration","underline")
+                    .on("click", function() {
+                        d3.selectAll(`.${circle}`).style("display", "table").style("display",function (d,ind){
+                            return "circle"                                
+                        })
+                        d3.select(`.${circle+legend[0]}`).attr('stroke-width', '0')
+                        d3.select(`.${circle+legend[1]}`).attr('stroke-width', '0')
+                        d3.select(`.${circle+legend[2]}`).attr('stroke-width', '0')
+
+                    }).style('cursor', 'pointer')
+                }
             })
         }
 
