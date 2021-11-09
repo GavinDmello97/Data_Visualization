@@ -15,7 +15,6 @@
       table {
         border: 1px solid #d2bcbc;
         border-collapse: collapse;
-        width: 60vw;
       }
       td {
         border: 1px solid #d2bcbc;
@@ -50,15 +49,15 @@
         padding: 20px;
       "
     >
-      <table style="margin: 5px; width: 600px" id="table1">
+      <table style="margin: 5px; " id="table1">
         <tr>
-          <td><svg width="500px" height="150px" id="top1"></svg></td>
+          <td><svg width="550px" height="150px" id="top1"></svg></td>
           <td width="10%">&nbsp</td>
         </tr>
         <tr>
           <td>
             <svg
-              width="500px"
+              width="550px"
               height="500px"
               viewBox="0 0 1100 1000"
               id="main1"
@@ -69,13 +68,13 @@
       </table>
       <table style="margin: 5px; width: 600px" id="table2">
         <tr>
-          <td><svg width="500px" height="150px" id="top2"></svg></td>
+          <td><svg width="550px" height="150px" id="top2"></svg></td>
           <td width="10%">&nbsp</td>
         </tr>
         <tr>
           <td>
             <svg
-              width="500px"
+              width="550px"
               height="500px"
               viewBox="0 0 1100 1000"
               id="main2"
@@ -86,13 +85,13 @@
       </table>
       <table style="margin: 5px; width: 600px" id="table3">
         <tr>
-          <td><svg width="500px" height="150px" id="top3"></svg></td>
+          <td><svg width="550px" height="150px" id="top3"></svg></td>
           <td width="10%">&nbsp</td>
         </tr>
         <tr>
           <td>
             <svg
-              width="500px"
+              width="550px"
               height="500px"
               viewBox="0 0 1100 1000"
               id="main3"
@@ -135,7 +134,7 @@
       // Subplots 2
 
       let fig2_main = d3
-        .select("#main")
+        .select("#main2")
         .append("g")
         .append("rect")
         .attr("class", "fig")
@@ -143,7 +142,7 @@
         .attr("height", "100%");
       // top svg 2
       let fig2_top = d3
-        .select("#top")
+        .select("#top2")
         .append("g")
         .append("rect")
         .attr("class", "fig")
@@ -151,7 +150,7 @@
         .attr("height", "100%");
       // right svg 2
       let fig2_right = d3
-        .select("#right")
+        .select("#right2")
         .append("g")
         .append("rect")
         .attr("class", "fig")
@@ -161,7 +160,7 @@
       // Subplots 3
 
       let fig3_main = d3
-        .select("#main")
+        .select("#main3")
         .append("g")
         .append("rect")
         .attr("class", "fig")
@@ -169,7 +168,7 @@
         .attr("height", "100%");
       // top svg 3
       let fig3_top = d3
-        .select("#top")
+        .select("#top3")
         .append("g")
         .append("rect")
         .attr("class", "fig")
@@ -177,7 +176,7 @@
         .attr("height", "100%");
       // right svg 3
       let fig3_right = d3
-        .select("#right")
+        .select("#right3")
         .append("g")
         .append("rect")
         .attr("class", "fig")
