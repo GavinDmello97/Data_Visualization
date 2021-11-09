@@ -34,25 +34,25 @@ function scatter_plot(X,Y,markersize,
     let x_axis = d3.axisBottom(xScale).ticks(4)
     let y_axis = d3.axisLeft(yScale).ticks(4)
     //X Axis
-    axis.append("g").attr("class","axis")
-        .attr("transform", `translate(${0},${1000-margin})`)
+    axis.append("g")
+        .attr("transform", `translate(${0},${1000-margin})`).attr("class","disable-text  axis")
         .call(x_axis)
     // Y Axis
-    axis.append("g").attr("class","axis")
-        .attr("transform", `translate(${margin},${0})`)
+    axis.append("g")
+        .attr("transform", `translate(${margin},${0})`).attr("class","disable-text  axis")
         .call(y_axis)
     // Labels
-    axis.append("g").attr("class","label")
+    axis.append("g")
         .attr("transform", `translate(${500},${1000-10})`)
         .append("text")
-        .attr("class","label")
+        .attr("class","disable-text  label")
         .attr("text-anchor","middle")
         .text(xLabel)
 
     axis.append("g")
         .attr("transform", `translate(${35},${500}) rotate(270)`)
         .append("text")
-        .attr("class","label")
+        .attr("class","disable-text  label")
         .attr("text-anchor","middle")
         .text(yLabel)
 
@@ -64,7 +64,8 @@ function scatter_plot(X,Y,markersize,
         .attr('y',80)
         .attr("text-anchor","middle")
         .text(title)
-        .attr("class","plotTitle")
+        .attr("class","plotTitle disable-text")
+
 
 
         if (legend.length>0){
@@ -93,7 +94,7 @@ function scatter_plot(X,Y,markersize,
                                         d3.select(`.${circle+d}`).attr('stroke-width', '5')
                                     })
                     .attr("class",circle+d).style('cursor', 'pointer')
-                lgnd.append('text').style("font-size", "30px").attr("class","legend").attr("dx","-140").attr("dy","30").text(d).on("click", function() {
+                lgnd.append('text').style("font-size", "30px").attr("class","legend").attr("dx","-140").attr("dy","30").text(d).attr("class", "disable-text").on("click", function() {
                     d3.selectAll(`.${circle}`).style("display", "table").style("display",function (d,ind){
                          if(ColorData[ind] === i){
                              return "circle"
@@ -112,7 +113,7 @@ function scatter_plot(X,Y,markersize,
                     let resetter = axis.append("g").attr('transform',`translate(${1000},${(i+1)*50 + space})`);
 
                 
-                    resetter.append('text').style("font-size", "28px").attr("class","legend").attr("dx","-140").attr("dy","30").text("Reset all legends").attr("text-decoration","underline")
+                    resetter.append('text').style("font-size", "28px").attr("class","legend").attr("dx","-140").attr("dy","30").text("Reset all legends").attr("text-decoration","underline").attr("class", "disable-text")
                     .on("click", function() {
                         d3.selectAll(`.${circle}`).style("display", "table").style("display",function (d,ind){
                             return "circle"                                
