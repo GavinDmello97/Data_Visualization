@@ -94,7 +94,7 @@ function scatter_plot(X,Y,markersize,
                                         d3.select(`.${circle+d}`).attr('stroke-width', '5')
                                     })
                     .attr("class",circle+d).style('cursor', 'pointer')
-                lgnd.append('text').style("font-size", "30px").attr("class","legend").attr("dx","-140").attr("dy","30").text(d).attr("class", "disable-text").on("click", function() {
+                lgnd.append('text').style("font-size", "30px").attr("class","legend").attr("text-decoration","underline").attr("dx","-140").attr("dy","30").text(d).attr("class", "disable-text").on("click", function() {
                     d3.selectAll(`.${circle}`).style("display", "table").style("display",function (d,ind){
                          if(ColorData[ind] === i){
                              return "circle"
@@ -108,7 +108,6 @@ function scatter_plot(X,Y,markersize,
                      d3.select(`.${circle+d}`).attr('stroke-width', '5')
                  }).style('cursor', 'pointer')
                 
-                console.log("Index = ", i, legend.length)
                 if(i === legend.length-1) {
                     let resetter = axis.append("g").attr('transform',`translate(${1000},${(i+1)*50 + space})`);
 
