@@ -6,76 +6,67 @@
 
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
-    <style>
-      #time {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        font-family: sans-serif;
-        font-size: 12pt;
-      }
-      .legend_text {
-        font-family: sans-serif;
-        font-size: 5pt;
-      }
-    </style>
+    <style></style>
   </head>
 
   <body style="display: flex; justify-content: center; align-items: center">
-    <svg width="40vw" viewbox="0 0 512 512"></svg>
-
-    <div id="time"></div>
+    <svg width="50vw" viewbox="0 0 512 512"></svg>
 
     <script>
-      const ctScanCsv = `data/Data_CT.csv`; //  abstracted data file
+      //Abstracted data file
+      const ctScanCsv = `data/Data_CT.csv`;
       let svg = d3.select("svg");
-      // min max temperature read during 2018
 
-      // path generator
       const path = d3.geoPath();
 
       function plot_contour(fileName) {
-        // Step 1 read csv file
+        //Read CSV file
         d3.csv(fileName).then(function (data) {
           // data dimensions
           let m = 512,
             n = 512;
 
-          // Step 2 convert data into 1D list
+          //Convert data into 1D list
           let values_T = [];
           data.forEach(function (d) {
             values_T.push(+d[0]);
           });
 
           console.log(d3.extent(values_T));
-          const min_Value = 0;
-          const max_Value = 100;
+          //Generate min and max values
+          const min_Value = d3.extent(values_T)[0];
+          const max_Value = d3.extent(values_T)[1];
 
-          /////////////////COLOR CODING/////////////////////////////
+          //Creating a color code function
           let colors = d3
             .scaleLinear()
             .domain(
               d3.range(
                 min_Value,
                 max_Value,
-                parseInt(Math.abs(max_Value - min_Value) / 10)
+                parseInt(Math.abs(max_Value - min_Value) / 11)
               )
             )
-            .range(["#ffffff", "#ffffff", "#2d3f8c", "#3e5eba", "#2b83ba"])
+            .range([
+              "#ffffff",
+              "#ffffff",
+              "#182e6c",
+              "#143ca0",
+              "#256cbd",
+              "#f6e6a1",
+              "#00a2bb",
+              "#a08616",
+              "#d00019",
+            ])
             .interpolate(d3.interpolateHcl);
 
-          ////////////////////////////////////////////////////////////
-
-          // Step 3 contour generator
+          //Contour generator
           let contours = d3
             .contours()
             .size([m, n])
-            .thresholds(d3.range(min_Value, max_Value, 6))(
-            // threshold is 6 degrees
-            values_T
-          );
+            .thresholds(d3.range(min_Value, max_Value, 100))(values_T);
 
-          // Step 3 append contour to path (d)
+          //Display contour by appending to svg
           svg
             .append("g")
             .attr("class", "contours")
@@ -86,8 +77,8 @@
             .attr("d", function (d) {
               return path(d);
             })
-            .attr("stroke", "black")
-            .attr("stroke-width", "0px")
+            .attr("stroke", "white")
+            .attr("stroke-width", "0.02px")
             .attr("stroke-linejoin", "round")
             .attr("fill", function (d) {
               return colors(d.value);
@@ -95,6 +86,7 @@
         });
       }
 
+      //Call the plot function
       plot_contour(ctScanCsv);
     </script>
   </body>
