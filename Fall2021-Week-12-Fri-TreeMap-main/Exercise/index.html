@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <meta charset="utf-8" />
+    <script src="libs/echarts.min.js"></script>
+    <title>Bonus Exercise</title>
+    <script src="../js/d3.js"></script>
+  </head>
+  <body style="height: 100%; margin: 0">
+    <div id="container" style="height: 100%"></div>
+    <script type="text/javascript">
+      d3.json("../data/us_population.json").then(function (Data) {
+        let data = [
+          { parentColumn: "", childColumn: "A" },
+          { parentColumn: "A", childColumn: "B" },
+          { parentColumn: "A", childColumn: "C" },
+          { parentColumn: "B", childColumn: "D", val: 30 },
+          { parentColumn: "B", childColumn: "E", val: 50 },
+          { parentColumn: "C", childColumn: "F", val: 20 },
+          { parentColumn: "C", childColumn: "G", val: 40 },
+          { parentColumn: "C", childColumn: "H", val: 60 },
+        ];
+
+        //stratify input data
+        let stratify_function = d3
+          .stratify()
+          .id((d) => d["childColumn"])
+          .parentId((d) => d["parentColumn"]);
+
+        //recursive caller function
+        data_function = (data) => {
+          let myArr = [];
+          if (data.children) {
+            data.children.map((d) => {
+              myArr.push(data_function(d));
+            });
+          }
+          if (myArr.length == 0 && data.data.val)
+            return { name: data.id, value: data.data.val };
+          return { name: data.id, children: myArr };
+        };
+
+        let stratify_formatted = stratify_function(data);
+        let data_formatted = data_function(stratify_formatted);
+
+        let dom = document.getElementById("container"); // select container
+        let treeMap = echarts.init(dom); // initiate echarts object
+        treeMap.setOption(
+          {
+            // define type of visualization
+            series: [
+              {
+                type: "treemap", // visualization type
+                data: data_formatted.children, // data
+                label: {
+                  // show or hide labels
+                  show: true,
+                  fontSize: 12,
+                  formatter: function (d) {
+                    return d.data.name + "\n" + d.data.value;
+                  },
+                },
+              },
+            ],
+          },
+          true
+        );
+      });
+    </script>
+  </body>
+</html>
