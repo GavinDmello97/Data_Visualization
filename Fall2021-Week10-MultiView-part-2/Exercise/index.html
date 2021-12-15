@@ -250,6 +250,13 @@
         });
 
         let islandList = ['Torgersen','Biscoe','Dream']
+        let scaleR1 = d3.scaleSqrt().domain(d3.extent(flmm1,d=>d)).range([3,20])
+        let scaleR2 = d3.scaleSqrt().domain(d3.extent(flmm2,d=>d)).range([3,20])
+        let scaleR3 = d3.scaleSqrt().domain(d3.extent(flmm3,d=>d)).range([3,20])
+        flmm1 = flmm1.map(d=>scaleR1(d))
+        flmm2 = flmm2.map(d=>scaleR2(d))
+        flmm3 = flmm3.map(d=>scaleR3(d))
+
 
 
         let island_code = d3.map(dict[iterableSet[0]], function (d) {
